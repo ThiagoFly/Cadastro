@@ -1,6 +1,8 @@
 <p-toast></p-toast>
 <p-confirmDialog></p-confirmDialog>
+
 <p-card header="📚 Lista de Alunos" styleClass="shadow-3 p-4 border-round-xl">
+  <!-- Filtros e Botão Novo -->
   <div class="flex justify-between items-center mb-4 flex-wrap gap-2">
     <div class="flex gap-2 flex-wrap">
       <span class="p-input-icon-left">
@@ -31,11 +33,12 @@
       type="button"
       icon="pi pi-user-plus"
       label="Novo Aluno"
-      class="p-button-success p-button-rounded p-button-outlined"
+      class="p-button-success p-button-raised"
       routerLink="/alunos/cadastro"
     ></button>
   </div>
 
+  <!-- Tabela de Alunos -->
   <p-table
     [value]="alunosFiltrados"
     [paginator]="true"
@@ -51,7 +54,7 @@
         <th pResizableColumn>👤 Nome</th>
         <th pResizableColumn>🎂 Idade</th>
         <th pResizableColumn>🎓 Curso</th>
-        <th>Ações</th>
+        <th style="width: 120px;">Ações</th>
       </tr>
     </ng-template>
 

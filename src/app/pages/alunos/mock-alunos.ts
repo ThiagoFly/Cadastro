@@ -1,4 +1,6 @@
-export const ALUNOS = [
+import { Aluno } from 'src/app/pages/core/models/aluno.model';
+
+export const ALUNOS: Aluno[] = [
   { id: 1, nome: 'Eduardo Tavares', idade: 18, curso: 'Ciência da Computação' },
   { id: 2, nome: 'Aline Barreto', idade: 24, curso: 'Medicina' },
   { id: 3, nome: 'Victor Carvalho', idade: 21, curso: 'Engenharia Mecânica' },

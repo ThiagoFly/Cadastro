@@ -5,6 +5,8 @@ import {InputTextModule} from 'primeng/inputtext';
 import {CheckboxModule} from 'primeng/checkbox';
 import {TableModule} from 'primeng/table';
 import { CardModule } from 'primeng/card';
+import { DropdownModule } from 'primeng/dropdown';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   exports: [
@@ -12,7 +14,9 @@ import { CardModule } from 'primeng/card';
     CheckboxModule,
     InputTextModule,
     TableModule,
-    CardModule
+    CardModule,
+    DropdownModule,
+    ToastModule
   ]
 })
 export class PrimengModule { }

@@ -1,61 +1,43 @@
 import { Component, OnInit } from '@angular/core';
-import { AlunoService } from '../alunos.service';
-import { ConfirmationService, MessageService } from 'primeng/api';
-
-interface Aluno {
-  id: number;
-  nome: string;
-  idade: number;
-  curso: string;
-}
+import { Aluno } from 'src/app/pages/core/models/aluno.model';
+import { AlunoService } from 'src/app/pages/alunos/alunos.service';
 
 @Component({
   selector: 'app-alunos-lista',
   templateUrl: './alunos-lista.component.html',
-  styleUrls: ['./alunos-lista.component.css'],
-  providers: [ConfirmationService, MessageService]
+  styleUrls: ['./alunos-lista.component.css']
 })
 export class AlunosListaComponent implements OnInit {
   alunos: Aluno[] = [];
   alunosFiltrados: Aluno[] = [];
-
   filtroNome: string = '';
   filtroCurso: string = '';
 
-  constructor(
-    private alunoService: AlunoService,
-    private confirmationService: ConfirmationService,
-    private messageService: MessageService
-  ) {}
+  constructor(private alunoService: AlunoService) {}
 
   ngOnInit(): void {
+    this.carregarAlunos();
+  }
+
+  carregarAlunos(): void {
     this.alunos = this.alunoService.getAlunos();
     this.alunosFiltrados = [...this.alunos];
   }
 
   filtrarAlunos(): void {
+    const nome = this.filtroNome.toLowerCase();
+    const curso = this.filtroCurso.toLowerCase();
+
     this.alunosFiltrados = this.alunos.filter(aluno =>
-      aluno.nome.toLowerCase().includes(this.filtroNome.toLowerCase()) &&
-      aluno.curso.toLowerCase().includes(this.filtroCurso.toLowerCase())
+      aluno.nome.toLowerCase().includes(nome) &&
+      aluno.curso.toLowerCase().includes(curso)
     );
   }
 
   excluirAluno(aluno: Aluno): void {
-    this.confirmationService.confirm({
-      message: `Deseja realmente excluir o aluno ${aluno.nome}?`,
-      header: 'Confirmar Exclusão',
-      icon: 'pi pi-exclamation-triangle',
-      acceptLabel: 'Sim',
-      rejectLabel: 'Cancelar',
-      accept: () => {
-        this.alunos = this.alunos.filter(a => a.id !== aluno.id);
-        this.filtrarAlunos();
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Excluído',
-          detail: `Aluno ${aluno.nome} removido com sucesso.`
-        });
-      }
-    });
+    this.alunos = this.alunos.filter(a => a.id !== aluno.id);
+    this.alunosFiltrados = [...this.alunos];
+    // Se quiser atualizar no serviço também:
+    // this.alunoService.setAlunos(this.alunos); <-- REMOVA essa linha
   }
 }

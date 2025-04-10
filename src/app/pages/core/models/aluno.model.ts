@@ -1,11 +1,12 @@
 export class Aluno {
-    idaluno?: number;
-    status?: boolean;
-    datacriacao?: Date;
-    dataalteracao?: Date;
-    usucriacao?: string;
-    usualteracao?: String;
-    cpf?: string;
-    nome?: string;
-  id: number;
+  id!: number;
+  nome!: string;
+  idade!: number;      
+  curso!: string;      
+  cpf?: string;
+  status?: boolean;
+  datacriacao?: Date;
+  dataalteracao?: Date;
+  usucriacao?: string;
+  usualteracao?: string;
 }

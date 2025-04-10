@@ -1,55 +1,88 @@
-<p-card header="Cadastro de Aluno">
-  <div class="flex flex-wrap col-12 mb-3">
-    <button
-      pButton
-      type="button"
-      class="p-button p-button-raised"
-      icon="pi pi-caret-left"
-      pTooltip="Voltar"
-      tooltipPosition="top"
-      label="Voltar"
-      routerLink="/alunos"
-    ></button>
-  </div>
+<p-toast></p-toast>
 
-  <form #form="ngForm" autocomplete="off" (ngSubmit)="cadastrar()">
-    <div class="grid">
-      <span class="col-12 mb-2">Nome</span>
-      <div class="col-12 md:col-6 lg:col-4">
-        <input
-          pInputText
-          name="nome"
-          [(ngModel)]="aluno.nome"
-          required
-          type="text"
-        />
-      </div>
+<!-- Botão Voltar -->
+<div class="mb-3">
+  <button
+    pButton
+    icon="pi pi-arrow-left"
+    label="Voltar"
+    class="p-button-success p-button-text"
+    (click)="voltar()"
+  ></button>
+</div>
 
-      <span class="col-12 mb-2 mt-3">Idade</span>
-      <div class="col-12 md:col-3 lg:col-2">
-        <input
-          pInputText
-          name="idade"
-          [(ngModel)]="aluno.idade"
-          required
-          type="number"
-        />
-      </div>
+<p-card header="Cadastro de Aluno" styleClass="shadow-3 p-4 border-round-xl">
+  <form #form="ngForm" (ngSubmit)="cadastrar(form)" class="p-fluid grid">
 
-      <span class="col-12 mb-2 mt-3">Curso</span>
-      <div class="col-12 md:col-6 lg:col-4">
-        <input
-          pInputText
-          name="curso"
-          [(ngModel)]="aluno.curso"
-          required
-          type="text"
-        />
-      </div>
+    <!-- Nome -->
+    <div class="field col-12 md:col-6">
+      <label for="nome">Nome</label>
+      <input
+        id="nome"
+        name="nome"
+        type="text"
+        pInputText
+        [(ngModel)]="aluno.nome"
+        [required]="true"
+        [ngClass]="{'p-invalid': form.submitted && !aluno.nome}"
+      />
+    </div>
 
-      <div class="col-12 mt-4">
-        <button pButton type="submit" label="Salvar"></button>
-      </div>
+    <!-- Idade -->
+    <div class="field col-12 md:col-6">
+      <label for="idade">Idade</label>
+      <input
+        id="idade"
+        name="idade"
+        type="number"
+        pInputText
+        [(ngModel)]="aluno.idade"
+        [required]="true"
+        min="0"
+        max="120"
+        [ngClass]="{'p-invalid': form.submitted && !aluno.idade}"
+      />
+    </div>
+
+    <!-- Curso -->
+    <div class="field col-12 md:col-6">
+      <label for="curso">Curso</label>
+      <p-dropdown
+        [options]="cursos"
+        [(ngModel)]="aluno.curso"
+        name="curso"
+        placeholder="Selecione um curso"
+        optionLabel="label"
+        [showClear]="true"
+        [required]="true"
+        [ngClass]="{'p-invalid': form.submitted && !aluno.curso}"
+      ></p-dropdown>
+    </div>
+
+    <!-- CPF (opcional) -->
+    <div class="field col-12 md:col-6">
+      <label for="cpf">CPF</label>
+      <input
+        id="cpf"
+        name="cpf"
+        type="text"
+        pInputText
+        [(ngModel)]="aluno.cpf"
+        maxlength="14"
+        placeholder="xxx.xxx.xxx-xx"
+        [ngClass]="{'p-invalid': form.submitted && !aluno.cpf}"
+      />
+    </div>
+
+    <!-- Botão Salvar (compacto) -->
+    <div class="field col-12 mt-4 text-right">
+      <button
+        pButton
+        type="submit"
+        icon="pi pi-save"
+        label="Salvar"
+        class="p-button-success p-button-sm"
+      ></button>
     </div>
   </form>
 </p-card>
